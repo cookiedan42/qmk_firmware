@@ -1,7 +1,16 @@
 #include QMK_KEYBOARD_H
 
+// not using magic keycodes to swap
+uint16_t keycode_config(uint16_t keycode) {
+    return keycode;
+}
+uint8_t mod_config(uint8_t mod) {
+    return mod;
+}
+
+
+
 enum sofle_layers {
-    /* _M_XYZ = Mac Os, _W_XYZ = Win/Linux */
     _QWERTY,
     _FN,
     _CODE,
@@ -10,13 +19,11 @@ enum sofle_layers {
 
 enum custom_keycodes {
     KC_QWERTY = SAFE_RANGE,
-    KC_FN,
-    KC_CODE,
-    LYR_NUM,
-
-    KC_PRVWD,
-    KC_NXTWD,
 };
+const uint16_t KC_PRVWD = LCTL(KC_LEFT);
+const uint16_t KC_NXTWD = LCTL(KC_RIGHT);
+const uint16_t KC_RUN = LALT(KC_SPC);
+
 
 /*
  * TEMPLATE
@@ -63,9 +70,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = LAYOUT(
   KC_ESC,  KC_1, KC_2,    KC_3,    KC_4,    KC_5,                             KC_6,          KC_7,   KC_8,    KC_9,   KC_0,    KC_BSPC,      
   KC_TAB,  KC_Q, KC_W,    KC_E,    KC_R,    KC_T,                             KC_Y,          KC_U,   KC_I,    KC_O,   KC_P,    KC_DEL,     
-  XXXXXXX, KC_A, KC_S,     KC_D,    KC_F,    KC_G,                             KC_H,          KC_J,   KC_K,    KC_L,   KC_SCLN, KC_QUOT,     
-  KC_LSFT, KC_Z, KC_X,     KC_C,    KC_V,    KC_B,  XXXXXXX,          XXXXXXX, KC_N,          KC_M,   KC_COMM, KC_DOT, KC_SLSH, KC_RSFT,    
-            LALT(KC_SPC), KC_LGUI, KC_LALT,KC_LCTL, KC_SPC,           LT(_FN,KC_BSPC), LT(_CODE,KC_ENT), TG(_NUM), XXXXXXX, XXXXXXX 
+  KC_RUN,  KC_A, KC_S,    KC_D,    KC_F,    KC_G,                             KC_H,          KC_J,   KC_K,    KC_L,   KC_SCLN, KC_QUOT,     
+  KC_LSFT, KC_Z, KC_X,    KC_C,    KC_V,    KC_B,  XXXXXXX,          XXXXXXX, KC_N,          KC_M,   KC_COMM, KC_DOT, KC_SLSH, KC_RSFT,    
+            XXXXXXX, KC_LGUI, KC_LALT,KC_LCTL, KC_SPC,           LT(_FN,KC_BSPC), LT(_CODE,KC_ENT), TG(_NUM), XXXXXXX, XXXXXXX 
 ),
 /* FN
  * ,-----------------------------------------.                    ,-----------------------------------------.
@@ -140,79 +147,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // new user defined keys behaviour
 
-bool key_FN (uint16_t keycode, keyrecord_t *record){
-    if (record->event.pressed) {
-        layer_on(_FN);
-    } else {
-        layer_off(_FN);
-    }
-    return false;
-}
-
-bool key_CODE (uint16_t keycode, keyrecord_t *record){
-    if (record->event.pressed) {
-        layer_on(_CODE);
-    } else {
-        layer_off(_CODE);
-    }
-    return false;
-}
-
-bool key_PRVWD (uint16_t keycode, keyrecord_t *record){
-    if (record->event.pressed) {
-        register_mods(mod_config(MOD_LCTL));
-        register_code(KC_LEFT);
-    } else {
-        unregister_mods(mod_config(MOD_LCTL));
-        unregister_code(KC_LEFT);
-    }
-    return false;
-}
-
-bool key_NXTWD (uint16_t keycode, keyrecord_t *record){
-    if (record->event.pressed) {
-        register_mods(mod_config(MOD_LCTL));
-        register_code(KC_RIGHT);
-    } else {
-        unregister_mods(mod_config(MOD_LCTL));
-        unregister_code(KC_RIGHT);
-    }
-    return false;
-}
-
 // calling the user defined keys
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    // return true if unmodified
-
-switch (keycode) {
-case LT(0,KC_CODE):
-    if (record->tap.count && record->event.pressed) {
-        tap_code16(KC_ENT);         // Return true for normal processing of tap keycode
-        return false;
-    } else {
-        return key_CODE(keycode, record);
-    }
-
-case LT(0,KC_FN):
-    if (record->tap.count && record->event.pressed) {
-        tap_code16(KC_BSPC);         // Return true for normal processing of tap keycode
-        return false;
-    } else {
-        return key_CODE(keycode, record);
-    }
-case KC_FN:
-            return key_FN(keycode,record);
-case KC_CODE:
-            return key_CODE(keycode,record);
-case KC_PRVWD:
-            return key_PRVWD(keycode, record);
-case KC_NXTWD:
-            return key_NXTWD(keycode, record);
-    }
-    // if not caught
-    return true;
-}
+// bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+//     return true;
+// }
 
 #ifdef ENCODER_ENABLE
 
@@ -230,7 +169,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
             tap_code(KC_PGUP);
         }
     }
-    return true;
+    return false;
 }
 
 #endif
@@ -240,11 +179,8 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 
 static void print_status_narrow(void) {
     // Print current mode
-    oled_write_P(PSTR("\n\n"), false);
-    oled_write_ln_P(PSTR("cookiedan42"), false);
-
     // Print current layer
-    oled_write_ln_P(PSTR("LAYER"), false);
+    oled_write_ln_P(PSTR("LAYER"), true);
     switch (get_highest_layer(layer_state)) {
         case _QWERTY:
             oled_write_ln_P(PSTR("Qwrt"), false);
@@ -261,10 +197,12 @@ static void print_status_narrow(void) {
         default:
             oled_write_P(PSTR("Undef"), false);
     }
-    oled_write_P(PSTR("\n"), false);
+
+    oled_write_ln_P(PSTR("\n\nLOCK"), true);
     led_t led_state = host_keyboard_led_state();
-    oled_write_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);
-    oled_write_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
+    oled_write_P(led_state.num_lock ? PSTR("numLK") : PSTR("    "), false);
+    oled_write_P(led_state.caps_lock ? PSTR("capLK") : PSTR("    "), false);
+
  }
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
