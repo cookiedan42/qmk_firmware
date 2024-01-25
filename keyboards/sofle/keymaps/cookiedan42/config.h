@@ -17,3 +17,7 @@ for more options.
 #undef LOCKING_RESYNC_ENABLE
 
 #define NO_MUSIC_MODE
+
+// add overhead, but enables both displays to show data
+#define SPLIT_LED_STATE_ENABLE
+#define SPLIT_LAYER_STATE_ENABLE
