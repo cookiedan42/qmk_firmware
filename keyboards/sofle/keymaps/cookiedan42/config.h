@@ -1,7 +1,6 @@
 #pragma once
-#define MASTER_RIGHT
-// master needs to be connected to computer to read data
-
+#define EE_HANDS
+// handedness defined by EEPROM persistent memory
 
 
 #define AUTO_SHIFT_MODIFIERS
