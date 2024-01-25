@@ -66,8 +66,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_FN] = LAYOUT_enc_front( XXXXXXX,XXXXXXX,
   KC_F1  , KC_F2  , KC_F3  ,  KC_F4  , KC_F5  ,  KC_F6  ,       KC_F7  , KC_F8  , KC_F9  , KC_F10 , KC_F11 , KC_F12 ,     
-  XXXXXXX, XXXXXXX, XXXXXXX,  KC_PGUP, XXXXXXX,  XXXXXXX,       KC_PGUP, XXXXXXX, KC_UP  , XXXXXXX, XXXXXXX, XXXXXXX,       
-  XXXXXXX, XXXXXXX, KC_PRVWD, KC_PGDN, KC_NXTWD, XXXXXXX,       KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, XXXXXXX,      
+  XXXXXXX, XXXXXXX, XXXXXXX,  KC_PGUP, XXXXXXX,  XXXXXXX,       XXXXXXX, XXXXXXX, KC_UP  , XXXXXXX, XXXXXXX, XXXXXXX,       
+  XXXXXXX, XXXXXXX, KC_PRVWD, KC_PGDN, KC_NXTWD, XXXXXXX,       XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, XXXXXXX,      
   _______, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX,  XXXXXXX,       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      
            _______, _______,  _______, _______,  KC_APP ,       _______, _______, _______, _______, _______
 ),
@@ -131,18 +131,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #ifdef ENCODER_ENABLE
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0) {
-        if (clockwise) {
-            tap_code(KC_VOLU);
-        } else {
-            tap_code(KC_VOLD);
-        }
-    } else if (index == 1) {
-        if (clockwise) {
-            tap_code(KC_PGDN);
-        } else {
-            tap_code(KC_PGUP);
-        }
+    switch(index){
+        case 0:
+            clockwise
+                ?tap_code(KC_VOLU)
+                :tap_code(KC_VOLD);
+            break;
+        case 1:
+            clockwise
+                ?tap_code(KC_PGDN);
+                :tap_code(KC_PGUP);
+            break;
     }
     return false;
 }
@@ -153,7 +152,6 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 #ifdef OLED_ENABLE
 
 static void print_status_narrow(void) {
-    // Print current mode
     // Print current layer
     oled_write_ln_P(PSTR("LAYER"), true);
     switch (get_highest_layer(layer_state)) {
@@ -173,6 +171,7 @@ static void print_status_narrow(void) {
             oled_write_P(PSTR("Undef"), false);
     }
 
+    // Print active locks
     oled_write_ln_P(PSTR("\n\nLOCK"), true);
     led_t led_state = host_keyboard_led_state();
     oled_write_P(led_state.num_lock ? PSTR("numLK") : PSTR("    "), false);
