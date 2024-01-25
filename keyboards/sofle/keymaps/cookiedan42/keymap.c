@@ -54,40 +54,40 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
  * |LShift|   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   M  |   ,  |   .  |   ?  |RShift|
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *            |      | LCTL | LAlt | Fn   | / Space /       \Enter \  |CODE | NUM  |      |      |
- *            |      |      |      |      |/       /         \      \ |     |      |      |      |
+ *            |  BAR |      |      |      | / Space /       \Enter \  | ENT |      |      |      |
+ *            |      |  WIN | LALT | LCTRL|/       /         \  Fn  \ |CODE | NUM  |      |      |
  *            `---------------------------'-------'           '------''---------------------------'
  */
 
-[_QWERTY] = LAYOUT( 
+
+[_QWERTY] = LAYOUT(
   KC_ESC,  KC_1, KC_2,    KC_3,    KC_4,    KC_5,                             KC_6,          KC_7,   KC_8,    KC_9,   KC_0,    KC_BSPC,      
   KC_TAB,  KC_Q, KC_W,    KC_E,    KC_R,    KC_T,                             KC_Y,          KC_U,   KC_I,    KC_O,   KC_P,    KC_DEL,     
   XXXXXXX, KC_A, KC_S,     KC_D,    KC_F,    KC_G,                             KC_H,          KC_J,   KC_K,    KC_L,   KC_SCLN, KC_QUOT,     
   KC_LSFT, KC_Z, KC_X,     KC_C,    KC_V,    KC_B,  XXXXXXX,          XXXXXXX, KC_N,          KC_M,   KC_COMM, KC_DOT, KC_SLSH, KC_RSFT,    
-        XXXXXXX, KC_LCTL, KC_LALT, LT(_FN,KC_LGUI), KC_SPC,           KC_BSPC, LT(_CODE,KC_ENT), LYR_NUM, XXXXXXX, XXXXXXX 
+            LALT(KC_SPC), KC_LGUI, KC_LALT,KC_LCTL, KC_SPC,           LT(_FN,KC_BSPC), LT(_CODE,KC_ENT), TG(_NUM), XXXXXXX, XXXXXXX 
 ),
-
 /* FN
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * |  F1  |  F2  |  F3  |  F4  |  F5  | F6                        |  F7  |  F8  |  F9  | F10  | F11  | F12  |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |winTab|      |      |      |      |      |                    | PGUP |NXT_WD| Up   |PRV_WD|      |      |
+ * |      |      |      | PGUP |      |      |                    |      |      | Up   |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      |  A   |  S   |      |   F  |      |-------.    ,-------| PGDWN| Left | Down | Right| MENU |      |
+ * |      |      | PRVWD| PGDWN| NXTWD|      |-------.    ,-------|      | Left | Down | Right|      |      |
  * |------+------+------+------+------+------|        |   |       |------+------+------+------+------+------|
- * |LShift|  Z   |  X   |  C   |  V   |  B   | -------|   |-------|      |      |      |      |      |      | 
+ * |LShift|      |      |      |      |      | -------|   |-------|      |      |      |      |      |      | 
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *            |      | LCTL | LAlt | Fn   | / Space /       \Enter \  |CODE | NUM  |      |      |
- *            |      |      |      |      |/       /         \      \ |     |      |      |      |
+ *            |  WIN |  BAR |      |      | / MENU  /       \Enter \  | ENT |      |      |      |
+ *            |  WIN |      | LALT | LCTRL|/       /         \  Fn  \ |CODE | NUM  |      |      |
  *            `---------------------------'-------'           '------''---------------------------'
  */
 
 [_FN] = LAYOUT( 
   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,    KC_F6,                           KC_F7,     KC_F8,    KC_F9,   KC_F10,   KC_F11,  KC_F12,     
-  LGUI(KC_TAB), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX,                         KC_PGUP,   KC_PRVWD, KC_UP,   KC_NXTWD, XXXXXXX, XXXXXXX,       
-  XXXXXXX, LCTL(KC_A), LCTL(KC_S), XXXXXXX, LCTL(KC_F),  XXXXXXX,                         KC_PGDN, KC_LEFT,  KC_DOWN, KC_RGHT,  KC_APP,  XXXXXXX,      
-  _______, LCTL(KC_Z), LCTL(KC_X), LCTL(KC_C), LCTL(KC_V), LCTL(KC_B), XXXXXXX,        XXXXXXX, XXXXXXX,   XXXXXXX,  XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX,      
-                    _______, _______, _______, _______, _______,        _______,  _______, _______,  _______, _______
+  XXXXXXX, XXXXXXX, XXXXXXX, KC_PGUP, XXXXXXX,  XXXXXXX,                      KC_PGUP,    XXXXXXX, KC_UP,    XXXXXXX, XXXXXXX, XXXXXXX,       
+  XXXXXXX, XXXXXXX, KC_PRVWD,KC_PGDN, KC_NXTWD, XXXXXXX,                        KC_PGDN, KC_LEFT,  KC_DOWN, KC_RGHT,  XXXXXXX, XXXXXXX,      
+  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX,        XXXXXXX, XXXXXXX,   XXXXXXX,  XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX,      
+                    _______, _______, _______, _______, KC_APP ,        _______,  _______, _______,  _______, _______
 ),
 
 /* CODE
@@ -100,8 +100,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
  * |LShift|   |  |  _   |      |   <  |   >  |-------|    |-------|      |      |      |      |      |      |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *            |      | LCTL | LAlt | Fn   | / Space /       \Enter \  |CODE | NUM  |      |      |
- *            |      |      |      |      |/       /         \      \ |     |      |      |      |
+ *            |  WIN |  BAR |      |      | / Space /       \Enter \  | ENT |      |      |      |
+ *            |  WIN |      | LALT | LCTRL|/       /         \  Fn  \ |CODE | NUM  |      |      |
  *            `---------------------------'-------'           '------''---------------------------'
  */
 [_CODE] = LAYOUT(
@@ -114,23 +114,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 /* NUM
  * ,-----------------------------------------.                     ,-----------------------------------------.
- * |  ESC |  1   |  2   |  3   | +  = | BKSP |                    |      |      |      |      |      |      |
+ * |  ESC |  1   |  2   |  3   | +  = | BKSP |                    |      |      |      |      |      |AS_TOG|
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * | Tab  |  4   |  5   |  6   |   -  | Tab  |                    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      |  7   |  8   |  9   |   *  | Enter|-------.    ,-------|     |       |      |      |      |      |
+ * |NUM_LK|  7   |  8   |  9   |   *  | Enter|-------.    ,-------|     |       |      |      |      |      |
  * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
  * |LShift|  (   |  0   |  )   |   /  |  .   |-------|    |-------|      |      |      |      |      |      |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *            |      | LCTL | LAlt | Fn   | / Space /       \Enter \  |CODE | NUM  |      |      |
- *            |      |      |      |      |/       /         \      \ |     |      |      |      |
+ *            |  WIN |  BAR |      |      | / Space /       \Enter \  | ENT |      |      |      |
+ *            |  WIN |      | LALT | LCTRL|/       /         \  Fn  \ |CODE | NUM  |      |      |
  *            `---------------------------'-------'           '------''---------------------------'
  */
 [_NUM] = LAYOUT(
-  KC_ESC,  KC_P1,   KC_P2,   KC_P3,   KC_EQL,  KC_BSPC,                          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  _______, KC_P4,   KC_P5,   KC_P6,   KC_PMNS, KC_TAB,                           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  XXXXXXX, KC_P7,   KC_P8,   KC_P9,   KC_PAST, KC_ENT,                           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  _______, KC_LPRN, KC_P0,   KC_RPRN, KC_PSLS, KC_PDOT, XXXXXXX,        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  KC_ESC, KC_P1,   KC_P2,   KC_P3,   KC_EQL,  KC_BSPC,                          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, AS_TOGG,
+  KC_TAB, KC_P4,   KC_P5,   KC_P6,   KC_PMNS, KC_TAB,                           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, AS_UP,
+  KC_NUM, KC_P7,   KC_P8,   KC_P9,   KC_PAST, KC_ENT,                           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, AS_DOWN,
+  KC_LSFT,KC_LPRN, KC_P0,   KC_RPRN, KC_PSLS, KC_PDOT, XXXXXXX,        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, AS_RPT,
                     _______, _______, _______, _______, _______,        _______, _______, _______, _______, _______
   ),
 };
@@ -158,15 +158,6 @@ bool key_CODE (uint16_t keycode, keyrecord_t *record){
     return false;
 }
 
-bool key_NUM (uint16_t keycode, keyrecord_t *record){
-    if (record->event.pressed) {
-        layer_on(_NUM);
-    } else {
-        layer_off(_NUM);
-    }
-    return false;
-}
-
 bool key_PRVWD (uint16_t keycode, keyrecord_t *record){
     if (record->event.pressed) {
         register_mods(mod_config(MOD_LCTL));
@@ -189,51 +180,6 @@ bool key_NXTWD (uint16_t keycode, keyrecord_t *record){
     return false;
 }
 
-bool key_COPY (uint16_t keycode, keyrecord_t *record){
-    if (record->event.pressed) {
-        register_mods(mod_config(MOD_LCTL));
-        register_code(KC_C);
-    } else {
-        unregister_mods(mod_config(MOD_LCTL));
-        unregister_code(KC_C);
-    }
-    return false;
-}
-
-bool key_PASTE (uint16_t keycode, keyrecord_t *record){
-    if (record->event.pressed) {
-        register_mods(mod_config(MOD_LCTL));
-        register_code(KC_V);
-    } else {
-        unregister_mods(mod_config(MOD_LCTL));
-        unregister_code(KC_V);
-    }
-    return false;
-}
-
-bool key_CUT (uint16_t keycode, keyrecord_t *record){
-    if (record->event.pressed) {
-        register_mods(mod_config(MOD_LCTL));
-        register_code(KC_X);
-    } else {
-        unregister_mods(mod_config(MOD_LCTL));
-        unregister_code(KC_X);
-    }
-    return false;
-}
-bool key_UNDO (uint16_t keycode, keyrecord_t *record){
-    if (record->event.pressed) {
-        register_mods(mod_config(MOD_LCTL));
-        register_code(KC_Z);
-    } else {
-        unregister_mods(mod_config(MOD_LCTL));
-        unregister_code(KC_Z);
-        }
-    return false;
-}
-
-
-
 // calling the user defined keys
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -250,7 +196,7 @@ case LT(0,KC_CODE):
 
 case LT(0,KC_FN):
     if (record->tap.count && record->event.pressed) {
-        tap_code16(KC_LGUI);         // Return true for normal processing of tap keycode
+        tap_code16(KC_BSPC);         // Return true for normal processing of tap keycode
         return false;
     } else {
         return key_CODE(keycode, record);
@@ -259,35 +205,14 @@ case KC_FN:
             return key_FN(keycode,record);
 case KC_CODE:
             return key_CODE(keycode,record);
-case LYR_NUM:
-            return key_NUM(keycode, record);
 case KC_PRVWD:
             return key_PRVWD(keycode, record);
 case KC_NXTWD:
             return key_NXTWD(keycode, record);
-case KC_COPY:
-            return key_COPY(keycode, record);
-case KC_PASTE:
-            return key_PASTE(keycode, record);
-case KC_CUT:
-            return key_CUT(keycode, record);
-case KC_UNDO:
-            return key_UNDO(keycode, record);
     }
     // if not caught
     return true;
 }
-
-
-
-
-
-
-
-
-
-
-
 
 #ifdef ENCODER_ENABLE
 
@@ -306,6 +231,49 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         }
     }
     return true;
+}
+
+#endif
+
+
+#ifdef OLED_ENABLE
+
+static void print_status_narrow(void) {
+    // Print current mode
+    oled_write_P(PSTR("\n\n"), false);
+    oled_write_ln_P(PSTR("cookiedan42"), false);
+
+    // Print current layer
+    oled_write_ln_P(PSTR("LAYER"), false);
+    switch (get_highest_layer(layer_state)) {
+        case _QWERTY:
+            oled_write_ln_P(PSTR("Qwrt"), false);
+            break;
+        case _FN:
+            oled_write_ln_P(PSTR("Func"), false);
+            break;
+        case _CODE:
+            oled_write_ln_P(PSTR("Code"), false);
+            break;
+        case _NUM:
+            oled_write_ln_P(PSTR("NUM"), false);
+            break;
+        default:
+            oled_write_P(PSTR("Undef"), false);
+    }
+    oled_write_P(PSTR("\n"), false);
+    led_t led_state = host_keyboard_led_state();
+    oled_write_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);
+    oled_write_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
+ }
+
+oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+    return OLED_ROTATION_270;
+}
+
+bool oled_task_user(void) {
+    print_status_narrow();
+    return false;
 }
 
 #endif
