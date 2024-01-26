@@ -1,5 +1,9 @@
 #include QMK_KEYBOARD_H
 
+#ifdef LUNA_ENABLE
+    #include "luna.h"
+#endif
+
 // not using magic keycodes to swap
 uint16_t keycode_config(uint16_t keycode) {
     return keycode;
@@ -20,6 +24,7 @@ enum sofle_layers {
 enum custom_keycodes {
     KC_QWERTY = SAFE_RANGE,
 };
+
 const uint16_t KC_PRVWD = LCTL(KC_LEFT);
 const uint16_t KC_NXTWD = LCTL(KC_RIGHT);
 const uint16_t KC_RUN = LALT(KC_SPC);
@@ -127,7 +132,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 //     return true;
 // }
-
 #ifdef ENCODER_ENABLE
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
@@ -174,9 +178,12 @@ static void print_status_narrow(void) {
     // Print active locks
     oled_write_ln_P(PSTR("\n\nLOCK"), true);
     led_t led_state = host_keyboard_led_state();
-    oled_write_P(led_state.num_lock ? PSTR("numLK") : PSTR("    "), false);
+    oled_write_P(led_state.num_lock  ? PSTR("numLK") : PSTR("    "), false);
     oled_write_P(led_state.caps_lock ? PSTR("capLK") : PSTR("    "), false);
-
+    
+    #ifdef LUNA_ENABLE
+    render_luna(0, 13);
+    #endif
  }
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {

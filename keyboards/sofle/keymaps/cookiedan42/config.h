@@ -21,3 +21,6 @@ for more options.
 // add overhead, but enables both displays to show data
 #define SPLIT_LED_STATE_ENABLE
 #define SPLIT_LAYER_STATE_ENABLE
+#define SPLIT_WPM_ENABLE
+
+#define LUNA_ENABLE
