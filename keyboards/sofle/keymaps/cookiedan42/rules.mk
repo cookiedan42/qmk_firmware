@@ -4,6 +4,9 @@ ENCODER_ENABLE = yes
 EXTRAKEY_ENABLE = yes
 WPM_ENABLE = yes
 
+MOUSEKEY_ENABLE = yes
+
+# performance optimizations
 CONSOLE_ENABLE = no
 LTO_ENABLE = yes
 SPACE_CADET_ENABLE = no

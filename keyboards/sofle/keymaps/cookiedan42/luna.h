@@ -69,16 +69,13 @@ static void render_luna(int LUNA_X, int LUNA_Y) {
         if (isJumping || !showedJump) {
             /* clear */
             oled_set_cursor(LUNA_X, LUNA_Y + 2);
-            oled_write("     ", false);
-
+            oled_write_P(PSTR("     "), false);
             oled_set_cursor(LUNA_X, LUNA_Y - 1);
-
             showedJump = true;
         } else {
             /* clear */
             oled_set_cursor(LUNA_X, LUNA_Y - 1);
-            oled_write("     ", false);
-
+            oled_write_P(PSTR("     "), false);
             oled_set_cursor(LUNA_X, LUNA_Y);
         }
 
