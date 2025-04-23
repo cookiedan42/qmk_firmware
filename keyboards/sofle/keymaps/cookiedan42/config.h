@@ -3,7 +3,9 @@
 // handedness defined by EEPROM persistent memory
 
 #define AUTO_SHIFT_TIMEOUT_PER_KEY
+
 #define AUTO_SHIFT_TIMEOUT 110
+#define TAPPING_TERM 150
 
 // Cherry MX Lock switch
 #undef LOCKING_SUPPORT_ENABLE
