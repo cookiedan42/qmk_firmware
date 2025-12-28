@@ -19,7 +19,6 @@ enum layers {
     _CODE,
     _COD2,
     _TEST,
-    _MOUS,
 };
 
 enum custom_keycodes {
@@ -28,6 +27,7 @@ enum custom_keycodes {
     CC_ZOOM,
 };
 
+const uint16_t ENC_BLNK =  XXXXXXX;
 const uint16_t KC_PRVWD = LCTL(KC_LEFT);
 const uint16_t KC_NXTWD = LCTL(KC_RIGHT);
 const uint16_t CC_FN_BK = LT(_FUNC,KC_BSPC);
@@ -53,12 +53,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 
-[_QWER] = LAYOUT( XXXXXXX,XXXXXXX,
-  KC_ESC , KC_1   , KC_2   , KC_3   , KC_4   , KC_5  ,          KC_6     , KC_7     , KC_8   , KC_9   , KC_0   , KC_BSPC,      
-  KC_TAB , KC_Q   , KC_W   , KC_E   , KC_R   , KC_T  ,          KC_Y     , KC_U     , KC_I   , KC_O   , KC_P   , KC_DEL ,     
-  XXXXXXX, KC_A   , KC_S   , KC_D   , KC_F   , KC_G  ,          KC_H     , KC_J     , KC_K   , KC_L   , KC_SCLN, KC_QUOT,     
-  KC_LSFT, KC_Z   , KC_X   , KC_C   , KC_V   , KC_B  ,          KC_N     , KC_M     , KC_COMM, KC_DOT , KC_SLSH, XXXXXXX,    
-           XXXXXXX, KC_LGUI, KC_LALT, CC_LCTL, CC_SPC2,         CC_FN_BK , CC_CO_EN , XXXXXXX, XXXXXXX, XXXXXXX 
+[_QWER] = LAYOUT(
+  KC_ESC , KC_1   , KC_2   , KC_3   , KC_4   , KC_5  ,                      KC_6     , KC_7     , KC_8   , KC_9   , KC_0   , KC_BSPC,      
+  KC_TAB , KC_Q   , KC_W   , KC_E   , KC_R   , KC_T  ,                      KC_Y     , KC_U     , KC_I   , KC_O   , KC_P   , KC_DEL ,     
+  XXXXXXX, KC_A   , KC_S   , KC_D   , KC_F   , KC_G  ,                      KC_H     , KC_J     , KC_K   , KC_L   , KC_SCLN, KC_QUOT,     
+  KC_LSFT, KC_Z   , KC_X   , KC_C   , KC_V   , KC_B  , ENC_BLNK, ENC_BLNK,  KC_N     , KC_M     , KC_COMM,  KC_DOT , KC_SLSH,   KC_RSFT,
+           XXXXXXX, KC_LCTL, KC_LALT, KC_LCMD, CC_SPC2,                     CC_FN_BK , CC_CO_EN , XXXXXXX, XXXXXXX, XXXXXXX 
 ),
 [_QW_S] = LAYOUT_TRNS(),
 
@@ -76,12 +76,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *            |      |  WIN | LALT | LCTRL|/       /         \  Fn  \ | CODE |      |      |      |
  *            `---------------------------'-------'           '------''---------------------------'
  */
-[_FUNC] = LAYOUT( XXXXXXX,XXXXXXX,
-  KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5  , KC_F6  ,       KC_F7  , KC_F8  , KC_F9  , KC_F10 , KC_F11 , KC_F12 ,     
-  XXXXXXX, CC_ZOOM, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,       XXXXXXX, KC_HOME, KC_UP  , KC_END , XXXXXXX, XXXXXXX,       
-  XXXXXXX, KC_LCTL, KC_LSFT, KC_LALT, XXXXXXX, XXXXXXX,       XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, XXXXXXX,      
-  XXXXXXX, CC_VOL , XXXXXXX, CC_WIND, XXXXXXX, XXXXXXX,       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, AS_TOGG,      
-           _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______
+[_FUNC] = LAYOUT( 
+  KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5  , KC_F6  ,                     KC_F7  , KC_F8  , KC_F9  , KC_F10 , KC_F11 , KC_F12 ,     
+  XXXXXXX, CC_ZOOM, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     XXXXXXX, KC_HOME, KC_UP  , KC_END , XXXXXXX, XXXXXXX,       
+  XXXXXXX, KC_LCTL, KC_LSFT, KC_LALT, XXXXXXX, XXXXXXX,                     XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, XXXXXXX,      
+  XXXXXXX, CC_VOL , XXXXXXX, CC_WIND, XXXXXXX, XXXXXXX, ENC_BLNK, ENC_BLNK, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, AS_TOGG,      
+           _______, _______, _______, _______, _______,                     _______, _______, _______, _______, _______
 ),
 
 /* CODE
@@ -98,12 +98,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *            |      |  WIN | LALT | LCTRL|/       /         \  Fn  \ | CODE |      |      |      |
  *            `---------------------------'-------'           '------''---------------------------'
  */
-[_CODE] = LAYOUT( XXXXXXX,XXXXXXX,
-  KC_GRV , KC_1   , KC_2   , KC_3   , KC_4   , KC_5   ,         KC_6   , KC_7   , KC_8   , KC_9   , KC_0   , KC_BSPC,
-  KC_TILD, KC_EXLM, KC_AT  , KC_HASH, KC_DLR , KC_PERC,         KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______,
-  _______, KC_EQL , KC_PMNS, KC_PPLS, KC_LCBR, KC_RCBR,         KC_LBRC, KC_RBRC, KC_SCLN, KC_COLN, KC_BSLS, XXXXXXX,
-  _______, KC_UNDS, KC_PIPE, XXXXXXX, KC_LABK, KC_RABK,         KC_LPRN, KC_RPRN, KC_COMM, KC_DOT , KC_SLSH, XXXXXXX,
-           _______, _______, _______, _______, _______,         _______, _______, _______, _______, _______
+[_CODE] = LAYOUT( 
+  KC_GRV , KC_1   , KC_2   , KC_3   , KC_4   , KC_5   ,                     KC_6   , KC_7   , KC_8   , KC_9   , KC_0   , KC_BSPC,
+  KC_TILD, KC_EXLM, KC_AT  , KC_HASH, KC_DLR , KC_PERC,                     KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______,
+  _______, KC_EQL , KC_PMNS, KC_PPLS, KC_LCBR, KC_RCBR,                     KC_LBRC, KC_RBRC, KC_SCLN, KC_COLN, KC_BSLS, XXXXXXX,
+  _______, KC_UNDS, KC_PIPE, XXXXXXX, KC_LABK, KC_RABK, ENC_BLNK, ENC_BLNK, KC_LPRN, KC_RPRN, KC_COMM, KC_DOT , KC_SLSH, XXXXXXX,
+           _______, _______, _______, _______, _______,                     _______, _______, _______, _______, _______
 
 ),
 
@@ -121,36 +121,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *            |      |  WIN | LALT | LCTRL|/       /         \  Fn  \ | CODE |      |      |      |
  *            `---------------------------'-------'           '------''---------------------------'
  */
-[_COD2] = LAYOUT( XXXXXXX,XXXXXXX,
-  KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5  , KC_F6  ,         KC_F7  , KC_F8  , KC_F9  , KC_F10 , KC_F11 , KC_F12 ,     
-  KC_GRV , KC_1   , KC_2   , KC_3   , KC_4   , KC_5   ,         KC_6   , KC_7   , KC_8   , KC_9   , KC_0   , _______,
-  KC_TILD, KC_EXLM, KC_AT  , KC_HASH, KC_DLR , KC_PERC,         KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______,
-  _______, _______, _______, _______, _______, _______,         _______, _______, _______, _______, _______, _______,
-           _______, _______, _______, _______, _______,         _______, _______, _______, _______, _______
+[_COD2] = LAYOUT( 
+  KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5  , KC_F6  ,                     KC_F7  , KC_F8  , KC_F9  , KC_F10 , KC_F11 , KC_F12 ,     
+  KC_GRV , KC_1   , KC_2   , KC_3   , KC_4   , KC_5   ,                     KC_6   , KC_7   , KC_8   , KC_9   , KC_0   , _______,
+  KC_TILD, KC_EXLM, KC_AT  , KC_HASH, KC_DLR , KC_PERC,                     KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______,
+  _______, _______, _______, _______, _______, _______, ENC_BLNK, ENC_BLNK, _______, _______, _______, _______, _______, _______,
+           _______, _______, _______, _______, _______,                     _______, _______, _______, _______, _______
 
 ),
-
-/* MOUSE
- * ,-----------------------------------------.                    ,-----------------------------------------.
- * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
- * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      |      |      |      |      |      |                    |      | Click|MS_UP |RClick|      | ACL2 |
- * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      |      |      |      |      |      |-------.    ,-------|      | MS_L |MS_DN | MS_R |      | ACL1 |
- * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
- * |      |      |      |      |      |      |-------|    |-------|      |      |      |      |      | ACL0 |
- * `-----------------------------------------/       /     \      \-----------------------------------------'
- *            |      |      |      |      | / Space /       \ BKSP \  | ENT  |      |      |      |
- *            |      |  WIN | LALT | LCTRL|/       /         \  Fn  \ | CODE |      |      |      |
- *            `---------------------------'-------'           '------''---------------------------'
- */
-  [_MOUS] = LAYOUT( XXXXXXX, XXXXXXX,
-   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,        XXXXXXX, KC_BTN1, KC_MS_U, KC_BTN2, XXXXXXX, KC_ACL2,
-   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,        XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_R, XXXXXXX, KC_ACL1,
-   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-            _______, _______, _______, _______, _______,        _______, _______, _______, _______, _______ 
-  ),
 
 };
 
@@ -356,9 +334,6 @@ static void print_status_narrow(void) {
         case _COD2:
             oled_write_ln_P(PSTR("Code2"), false);
             break;        
-        case _MOUS:
-            oled_write_ln_P(PSTR("Mouse"), false);
-            break;
         default:
             oled_write_P(PSTR("Undef"), false);
     }
@@ -397,7 +372,6 @@ bool oled_task_user(void) {
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     layer_state_t state1 = state;
-   state1 = update_tri_layer_state(state1, _QW_S, _FUNC, _MOUS);
    state1 = update_tri_layer_state(state1, _QW_S, _CODE, _COD2);
    return state1;
 }
